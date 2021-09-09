@@ -29,3 +29,4 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 
 ## Version history
 * 0.1_2021-09-09: first version on Github
+* 0.2_2021-09-10: improved timestamp checks

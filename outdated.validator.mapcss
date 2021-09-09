@@ -12,11 +12,11 @@ meta{
 /* Syntax: 'timestamp:/2019' means timestamps before 2019-01-01 */
 
 
-area[landuse=construction][JOSM_search("timestamp:/2019")]
+area[landuse=construction][JOSM_search("timestamp:/2019")]!:modified
 {
    throwWarning: tr("landuse=construction hasn't been touched in a while. Is construction work still ongoing?");
 }
-node[amenity=post_box][JOSM_search("timestamp:/2019")]{
+node[amenity=post_box][JOSM_search("timestamp:/2019")]!:modified{
    throwWarning: tr("Postbox hasn't been touched in a while, does it still exist?");
 }
 
@@ -26,7 +26,7 @@ node[amenity=post_box][JOSM_search("timestamp:/2019")]{
 *[tourism=picnic_site]{
    set seating;
 }
-*.seating[JOSM_search("timestamp:/2018")]{
+*.seating[JOSM_search("timestamp:/2018")]!:modified{
    throwWarning: tr("{0} hasn't been touched in a while; does it still exist?", "{0.tag}");
 }
 /* FIXME: {0.tag} doesn't give me what I need (want: amenity=bench and such) */
