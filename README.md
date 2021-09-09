@@ -5,7 +5,7 @@ Install via JOSM preferences, 'data validator', 'tag checker rules', 'plus' icon
 
 
 ## outdated.validator.mapcss
-`outdated.validator.mapcss` provides validator warnings for objects that, by experience, are subject to change in reality but haven't been touched in OSM for a while.  Additionally, it throws errors for `highway`s/`building`s with a spurious proposed/construction tag and allows to 'fix' those errors (by brutally deleting the spurious tags).
+Provides validator warnings for objects that, by experience, are subject to change in reality but haven't been touched in OSM for a while.  Additionally, it throws errors for highways/buildings with a spurious `proposed`/`construction` tag and allows to 'fix' those errors (by brutally deleting the spurious tags).
 
 The following objects will generate warnings:
 * `landuse=construction` and `amenity=post_box` if last timestamp is before 2019
@@ -15,15 +15,16 @@ These dates are hard-wired in the code, unfortunately.  I'll try and make that d
 
 
 ## smootheFiets.validator.mapcss
-`smootheFiets.validator.mapcss` throws warnings at things that smootheFiets likes to spend time on, most of them applicable to road mapping in the Netherlands:
-* `surface` and/or `smootheness` missing on cyclable ways
+Throws warnings at things that smootheFiets likes to spend time on, most of them applicable to road mapping in the Netherlands:
+* `surface` and/or `smoothness` missing on cyclable ways
 * `maxspeed` missing on roads
 * `highway=cycleway` without `traffic_sign`
 * `highway=footway` without NL:G7
-* `foot=no` or `bicycle=no` unless there's a good reason (signs C9, C14, C15, C16); needs to be `use_sidepath` in many cases.
-* `traffic_sign=city_limit` with proper `direction` tags
+* `foot=no` or `bicycle=no` unless there's a good reason (Dutch traffic signs C9, C14, C15, C16); needs to be `use_sidepath` in many cases.
+* `traffic_sign=city_limit` without proper `direction` tags
 * wheelchair accessibility of bus stops and crossings
 * `landuse` sharing nodes with `highway`
+* postboxes need `operator=PostNL` (in NL)
 
 
 ## Version history
