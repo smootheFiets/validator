@@ -1,0 +1,91 @@
+meta{
+   title: "smootheFiets's hobbies";
+   version: "0.1";
+   description: "Use JOSM validator to find spots on the map I'd like to improve";
+   author: "smootheFiets";
+}
+
+
+
+/* Roads w/o maxspeed */
+way[highway=~/^(unclassified|residential)$/],
+way[highway=~/(ary|ary_link)$/]
+{ set road; }
+way.road[!maxspeed][access!~/^(no|private|customers|permissive)$/]{
+   throwWarning: tr("Missing maxspeed");
+}
+
+/* cyclable ways w/o surface or smoothness */
+way.road,
+way[highway=~/^(cycleway|path)$/],
+way[highway=~/^(footway|pedestrian)$/][bicycle=~/^(yes|permissive|official|designated)$/]
+{ set cyclable; }
+/* ignore residentials, reject where biking is forbidden outright */
+way.cyclable[highway!=residential][bicycle!~/^(no|private|use_sidepath|customers|destination)$/]
+{ set cyclableToCheck; }
+/* Check for other tags forbidding bicycle traffic */
+way.cyclableToCheck[vehicle=~/^(no|private|customers|destination)$/][bicycle!~/^(yes|permissive|official|designated)$/],
+way.cyclableToCheck[access=~/^(no|private|customers|destination)$/][vehicle!~/^(yes|permissive|official|designated)$/]
+way.cyclableToCheck[access=~/^(no|private|customers|destination)$/][bicycle!~/^(yes|permissive|official|designated)$/]
+{ set cyclingForbidden; }
+/* Done checking! Output warnings */
+way.cyclableToCheck!.cyclingForbidden[!surface]{
+   throwWarning: tr("Cyclable way without surface tag.");
+}
+way.cyclableToCheck!.cyclingForbidden[!smoothness]{
+   throwWarning: tr("Cyclable way without smoothness tag.");
+}
+
+
+/* Missing/wrong tags */
+way[highway=cycleway][inside("NL")][!traffic_sign]{
+   throwError: tr("Cycleway without traffic sign");
+}
+way[highway=footway][inside("NL")][traffic_sign!~/NL:G7|NL:G07/][!footway]{
+   throwWarning: tr("Is this really a footway?  Consider adding G7, footway=sidewalk/crossing, or make it a path.");
+}
+way[highway!=motorway][foot=no][inside("NL")][traffic_sign!~/NL:C16/][motorroad!=yes]{
+   throwWarning: tr("Really foot=no?  Is there a sign C16, should it be foot=use_sidepath, or are pedestrians allowed?");
+}
+way[highway!=motorway][bicycle=no][motorroad!=yes][inside("NL")][traffic_sign!~/NL:C9|NL:C09|NL:C14|NL:C15/]{
+   throwWarning: tr("Really bicycle=no?  Is there a sign C9/C14/C15, should it be bicycle=use_sidepath, or are cyclists allowed?");
+}
+way[highway][bicycle=use_sidepath][mofa!=use_sidepath][inside("NL")]{
+   throwError: tr("bicycle=use_sidepath implies mofa=use_sidepath (except in Amsterdam?!?)");
+}
+way[highway=cycleway][bicycle=use_sidepath]{
+   throwError: tr("bicycle=use_sidepath on cycleway.");
+}
+
+node[traffic_sign=city_limit][!direction][!city_limit]{
+   throwWarning: tr("City-limit sign without direction (which way is in?)");
+}
+node:connection[traffic_sign=city_limit]{
+   throwWarning: tr("City-limit sign on junction node (direction is not defined, except on one-way streets)");
+}
+node:unconnected[traffic_sign=city_limit]{
+   throwWarning: tr("City-limit sign is detached from road (note that some mappers do that deliberately)");
+}
+
+node[amenity=post_box][inside("NL")][operator!=PostNL]{
+   throwError: tr("Dutch postboxes are operated by PostNL");
+}
+
+
+*[highway=bus_stop][!wheelchair]{
+   throwWarning: tr("Is bus stop wheelchair-accessible?");
+}
+node[highway=crossing][!kerb]{
+   throwWarning: tr("Does this crossing have kerb=yes/no/flush/...?");
+}
+
+area[landuse] > node:connection{  set nodeInLanduse; }
+way[highway] > node:connection{ set nodeInHighway; }
+/* area[landuse] > node ∈ way[highway]{ */   /* This doesn't work, don't know why */
+node.nodeInLanduse.nodeInHighway {
+   throwWarning: tr("landuse and highway share a node");
+}
+
+
+
+

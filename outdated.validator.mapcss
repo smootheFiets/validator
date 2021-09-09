@@ -1,0 +1,58 @@
+meta{
+   title: "Possibly outdated features";
+   version: "0.1";
+   description: "Lets JOSM validator warn against features susceptible to change that changed been touched in a while.  Also: spurious construction/proposed tags";
+   author: "smootheFiets";
+}
+
+
+/* All dates are hard-wired in the code, which is undesirable. */
+/* I'd much rather define a maximum acceptable 'age' per feature, and let JOSM search for that. */
+/* I couldn't find a way to make that happen, though. */
+/* Syntax: 'timestamp:/2019' means timestamps before 2019-01-01 */
+
+
+area[landuse=construction][JOSM_search("timestamp:/2019")]
+{
+   throwWarning: tr("landuse=construction hasn't been touched in a while. Is construction work still ongoing?");
+}
+node[amenity=post_box][JOSM_search("timestamp:/2019")]{
+   throwWarning: tr("Postbox hasn't been touched in a while, does it still exist?");
+}
+
+
+*[amenity=bench],
+*[leisure=picnic_table],
+*[tourism=picnic_site]{
+   set seating;
+}
+*.seating[JOSM_search("timestamp:/2018")]{
+   throwWarning: tr("{0} hasn't been touched in a while; does it still exist?", "{0.tag}");
+}
+/* FIXME: {0.tag} doesn't give me what I need (want: amenity=bench and such) */
+/*  *[amenity=bench],
+*[leisure=picnic_table],
+*[tourism=picnic_site]{
+   throwWarning: tr("dummy {0}", "{0.tag}");
+}   */
+/* debugging: I got the syntax right, in principle.  The problem's the class.  */
+
+
+/* Spurious tags proposed/construction */
+area[building][building!=construction][construction]{
+   throwError: tr("Spurious construction tag in building - click 'fix' to remove");
+   fixRemove: "construction";
+}
+area[building][building!=proposed][proposed]{
+   throwError: tr("Spurious proposed tag in building - click 'fix' to remove");
+   fixRemove: "proposed";
+}
+area[highway][highway!=construction][construction]{
+   throwError: tr("Spurious construction tag in highway - click 'fix' to remove");
+   fixRemove: "construction";
+}
+area[highway][highway!=proposed][proposed]{
+   throwError: tr("Spurious proposed tag in highway - click 'fix' to remove");
+   fixRemove: "proposed";
+}
+
