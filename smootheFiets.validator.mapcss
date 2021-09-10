@@ -25,7 +25,7 @@ way.cyclable[highway!=residential][bicycle!~/^(no|private|use_sidepath|customers
 { set cyclableToCheck; }
 /* Check for other tags forbidding bicycle traffic */
 way.cyclableToCheck[vehicle=~/^(no|private|customers|destination)$/][bicycle!~/^(yes|permissive|official|designated)$/],
-way.cyclableToCheck[access=~/^(no|private|customers|destination)$/][vehicle!~/^(yes|permissive|official|designated)$/]
+way.cyclableToCheck[access=~/^(no|private|customers|destination)$/][vehicle!~/^(yes|permissive|official|designated)$/],
 way.cyclableToCheck[access=~/^(no|private|customers|destination)$/][bicycle!~/^(yes|permissive|official|designated)$/]
 { set cyclingForbidden; }
 /* Done checking! Output warnings */
@@ -35,7 +35,6 @@ way.cyclableToCheck!.cyclingForbidden[!surface]{
 way.cyclableToCheck!.cyclingForbidden[!smoothness]{
    throwWarning: tr("Cyclable way without smoothness tag.");
 }
-
 
 /* Missing/wrong tags */
 way[highway=cycleway][inside("NL")][!traffic_sign]{
