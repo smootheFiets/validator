@@ -40,7 +40,7 @@ way.cyclableToCheck!.cyclingForbidden[!smoothness]{
 way[highway=cycleway][inside("NL")][!traffic_sign]{
    throwError: tr("Cycleway without traffic sign");
 }
-way[highway=footway][inside("NL")][traffic_sign!~/NL:G7|NL:G07/][!footway]{
+way[highway=footway][inside("NL")][traffic_sign!~/NL:G7|NL:G07|none/][!footway]{
    throwWarning: tr("Is this really a footway?  Consider adding G7, footway=sidewalk/crossing, or make it a path.");
 }
 way[highway!=motorway][foot=no][inside("NL")][traffic_sign!~/NL:C16/][motorroad!=yes]{
