@@ -1,6 +1,6 @@
 meta{
    title: "smootheFiets's hobbies";
-   version: "0.1";
+   version: "0.5";
    description: "Use JOSM validator to find spots on the map I'd like to improve";
    author: "smootheFiets";
 }
@@ -36,6 +36,14 @@ way.cyclableToCheck!.cyclingForbidden[!smoothness]{
    throwWarning: tr("Cyclable way without smoothness tag.");
 }
 
+/* Misused traffic signs */
+way[highway][highway!~/footway|pedestrian/][traffic_sign=~/NL:G07|NL:G7/]{
+   throwWarning: tr("traffic sign NL:G7 implies highway=footway/pedestrian");
+}
+way[highway][highway!=cycleway][traffic_sign=~/NL:G11|NLG12a|G13/]{
+   throwWarning: tr("Traffic signs NL:G11/G12a/G13 imply highway=cycleway");
+}
+
 /* Missing/wrong tags */
 way[highway=cycleway][inside("NL")][!traffic_sign]{
    throwError: tr("Cycleway without traffic sign");
@@ -46,7 +54,7 @@ way[highway=footway][inside("NL")][traffic_sign!~/NL:G7|NL:G07|none/][!footway]{
 way[highway!=motorway][foot=no][inside("NL")][traffic_sign!~/NL:C16/][motorroad!=yes]{
    throwWarning: tr("Really foot=no?  Is there a sign C16, should it be foot=use_sidepath, or are pedestrians allowed?");
 }
-way[highway!=motorway][bicycle=no][motorroad!=yes][inside("NL")][traffic_sign!~/NL:C9|NL:C09|NL:C14|NL:C15/]{
+way[highway!=motorway][bicycle=no][motorroad!=yes][inside("NL")][traffic_sign!~/NL:C9|NL:C09|NL:C14|NL:C15|NL:G7|NL:G07/]{
    throwWarning: tr("Really bicycle=no?  Is there a sign C9/C14/C15, should it be bicycle=use_sidepath, or are cyclists allowed?");
 }
 way[highway][bicycle=use_sidepath][mofa!=use_sidepath][inside("NL")]{
@@ -84,7 +92,3 @@ way[highway] > node:connection{ set nodeInHighway; }
 node.nodeInLanduse.nodeInHighway {
    throwWarning: tr("landuse and highway share a node");
 }
-
-
-
-
