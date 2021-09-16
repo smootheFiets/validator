@@ -33,3 +33,4 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 * 0.3_2021-09-10: syntax fix: forgotten comma
 * 0.4_2021-09-10: allow `traffic_sign=none` on footways
 * 0.5_2021-09-13: improved tests on highways with/without NL:G7/G11/G12a/G13
+* 0.6_2021-09-16: refined test on `direction` tag of city-limit signs

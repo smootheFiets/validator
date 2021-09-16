@@ -1,6 +1,6 @@
 meta{
    title: "smootheFiets's hobbies";
-   version: "0.5";
+   version: "0.6";
    description: "Use JOSM validator to find spots on the map I'd like to improve";
    author: "smootheFiets";
 }
@@ -64,7 +64,7 @@ way[highway=cycleway][bicycle=use_sidepath]{
    throwError: tr("bicycle=use_sidepath on cycleway.");
 }
 
-node[traffic_sign=city_limit][!direction][!city_limit]{
+node[traffic_sign=city_limit][!direction][!city_limit][!"name:forward"][!"name:backward"]{
    throwWarning: tr("City-limit sign without direction (which way is in?)");
 }
 node:connection[traffic_sign=city_limit]{
