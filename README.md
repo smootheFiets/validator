@@ -1,14 +1,28 @@
 # validator
 
-Custom JOSM-validator rules: `outdated.validator.mapcss` and `smootheFiets.validator.mapcss`.
+Custom JOSM-validator rules: ,
+`constructionProposed.validator.mapcss`, `outdated.validator.mapcss` and `smootheFiets.validator.mapcss`.
 Install via JOSM preferences, 'data validator', 'tag checker rules', 'plus' icon.
 
 
+## constructionProposed.validator.mapcss
+It's a customary (yet somewhat dated) paradigm to have buildings and
+highways transition from `building|highway=construction` +
+`construction=*` to `building|highway=*`.  It can easily happen that
+the `construction` tag gets forgotten and stays behind.  Similarly,
+`building|highway=construction` without `construction` tag is not very
+meaningful.  This file makes the JOSM validator throw an error at
+spurious `construction` tags (offering a somewhat heavy-handed fix:
+delete `construction`) and a warning at missing `construction` tags.
+
+Identical checks are performed for `building|highway=proposed`.
+
+
 ## outdated.validator.mapcss
-Provides validator warnings for objects that, by experience, are subject to change in reality but haven't been touched in OSM for a while.  Additionally, it throws errors for highways/buildings with a spurious `proposed`/`construction` tag and allows to 'fix' those errors (by brutally deleting the spurious tags).
+Provides validator warnings for objects that, by experience, are subject to change in reality but haven't been touched in OSM for a while. 
 
 The following objects will generate warnings:
-* `landuse=construction` and `amenity=post_box` if last timestamp is before 2019
+* `landuse=construction|brownfield` and `amenity=post_box` if last timestamp is before 2019
 * `amenity=bench`, `leisure=picnic_table`, and `tourism=picnic_site` if last timestamp is before 2018.
 
 These dates are hard-wired in the code, unfortunately.  I'll try and make that dynamic (older than _n_ years); for now I don't know how to pull that off in JOSM.
@@ -34,3 +48,5 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 * 0.4_2021-09-10: allow `traffic_sign=none` on footways
 * 0.5_2021-09-13: improved tests on highways with/without NL:G7/G11/G12a/G13
 * 0.6_2021-09-16: refined test on `direction` tag of city-limit signs
+* 0.7_2021-09-24: move tests on `construction|proposed` into separate
+  file; minor improvements

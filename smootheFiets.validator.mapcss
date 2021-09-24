@@ -1,10 +1,9 @@
 meta{
-   title: "smootheFiets's hobbies";
-   version: "0.6";
+   title: "smootheFiets's mapping hobbies";
+   version: "0.7";
    description: "Use JOSM validator to find spots on the map I'd like to improve";
    author: "smootheFiets";
 }
-
 
 
 /* Roads w/o maxspeed */
@@ -67,7 +66,7 @@ way[highway=cycleway][bicycle=use_sidepath]{
 node[traffic_sign=city_limit][!direction][!city_limit][!"name:forward"][!"name:backward"]{
    throwWarning: tr("City-limit sign without direction (which way is in?)");
 }
-node:connection[traffic_sign=city_limit]{
+node:connection[traffic_sign=city_limit][!city_limit]{
    throwWarning: tr("City-limit sign on junction node (direction is not defined, except on one-way streets)");
 }
 node:unconnected[traffic_sign=city_limit]{
@@ -86,8 +85,8 @@ node[highway=crossing][!kerb]{
    throwWarning: tr("Does this crossing have kerb=yes/no/flush/...?");
 }
 
-area[landuse] > node:connection{  set nodeInLanduse; }
-way[highway] > node:connection{ set nodeInHighway; }
+area[landuse] > node:connection[!barrier]{  set nodeInLanduse; }
+way[highway][area!=yes][highway!=platform] > node:connection[!barrier]{ set nodeInHighway; }
 /* area[landuse] > node ∈ way[highway]{ */   /* This doesn't work, don't know why */
 node.nodeInLanduse.nodeInHighway {
    throwWarning: tr("landuse and highway share a node");

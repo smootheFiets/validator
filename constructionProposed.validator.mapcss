@@ -1,0 +1,39 @@
+meta{
+   title: "Spurious/missing tags construction/proposed";
+   version: "0.1";
+   description: "Inconsistent tagging of highway/building=construction/proposed";
+   author: "smootheFiets";
+}
+
+
+/* Spurious tags proposed/construction */
+area[building][building!=construction][construction]{
+   throwError: tr("Spurious construction tag in building - click 'fix' to remove");
+   fixRemove: "construction";
+}
+area[building][building!=proposed][proposed]{
+   throwError: tr("Spurious proposed tag in building - click 'fix' to remove");
+   fixRemove: "proposed";
+}
+area[highway][highway!=construction][construction]{
+   throwError: tr("Spurious construction tag in highway - click 'fix' to remove");
+   fixRemove: "construction";
+}
+area[highway][highway!=proposed][proposed]{
+   throwError: tr("Spurious proposed tag in highway - click 'fix' to remove");
+   fixRemove: "proposed";
+}
+
+/* inverse of the above */
+area[building=construction][!construction]{
+   throwError: tr("building=construction requires construction tag");
+}
+area[highway=construction][!construction]{
+   throwError: tr("highway=construction requires construction tag");
+}
+area[building=proposed][!proposed]{
+   throwError: tr("building=proposed requires proposed tag");
+}
+area[highway=proposed][!proposed]{
+   throwError: tr("highway=proposed requires proposed tag");
+}
