@@ -50,3 +50,5 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 * 0.6_2021-09-16: refined test on `direction` tag of city-limit signs
 * 0.7_2021-09-24: move tests on `construction|proposed` into separate
   file; minor improvements
+  * 0.8_2021-09-28: implausible smoothness values
+  
