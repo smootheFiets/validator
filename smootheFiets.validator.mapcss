@@ -35,6 +35,10 @@ way.cyclableToCheck!.cyclingForbidden[!smoothness]{
    throwWarning: tr("Cyclable way without smoothness tag.");
 }
 
+way[cycleway=opposite][inside("NL")]{
+   throwError: tr("cycleway=opposite, replace with oneway:bicycle|mofa|moped=no");
+}
+
 /* Misused traffic signs */
 way[highway][highway!~/footway|pedestrian/][traffic_sign=~/NL:G07|NL:G7/]{
    throwWarning: tr("traffic sign NL:G7 implies highway=footway/pedestrian");

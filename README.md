@@ -34,6 +34,7 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
   combinations (e.g., `surface=unpaved`, `smoothness=excellent`)
 * `maxspeed` missing on roads
 * `highway=cycleway` without `traffic_sign`
+* `cycleway=opposite` instead of `oneway:*=no`
 * `highway=footway` without NL:G7
 * `foot=no` or `bicycle=no` unless there's a good reason (Dutch traffic signs C9, C14, C15, C16); needs to be `use_sidepath` in many cases.
 * `traffic_sign=city_limit` without proper `direction` tags
@@ -49,6 +50,6 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 * 0.4_2021-09-10: allow `traffic_sign=none` on footways
 * 0.5_2021-09-13: improved tests on highways with/without NL:G7/G11/G12a/G13
 * 0.6_2021-09-16: refined test on `direction` tag of city-limit signs
-* 0.7_2021-09-24: move tests on `construction|proposed` into separate
-  file; minor improvements
+* 0.7_2021-09-24: move tests on `construction|proposed` into separate file; minor improvements
 * 0.8_2021-09-28: implausible smoothness values
+* 0.9_2021_10_01: `cycleway=opposite`
