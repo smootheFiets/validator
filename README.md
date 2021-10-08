@@ -53,3 +53,4 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 * 0.7_2021-09-24: move tests on `construction|proposed` into separate file; minor improvements
 * 0.8_2021-09-28: implausible smoothness values
 * 0.9_2021_10_01: `cycleway=opposite`
+* 0.10_2021_10_08: pedestrians forbidden despite sidewalk

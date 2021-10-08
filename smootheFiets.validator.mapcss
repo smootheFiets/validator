@@ -1,6 +1,6 @@
 meta{
    title: "smootheFiets's mapping hobbies";
-   version: "0.8";
+   version: "0.10";
    description: "Use JOSM validator to find spots on the map I'd like to improve";
    author: "smootheFiets";
 }
@@ -106,3 +106,11 @@ way[smoothness=impassable]{
    throwWarning: tr("smootness=impassable: should it really be intermediate?");
 }
 
+
+way[sidewalk][foot=~/^(no|use_sidepath)/][sidewalk!~/^(no|separate|none)/],
+way["sidewalk:both"][foot=~/^(no|use_sidepath)/]["sidewalk:both"!~/^(no|separate|none)/],
+way["sidewalk:right"][foot=~/^(no|use_sidepath)/]["sidewalk:right"!~/^(no|separate|none)/],
+way["sidewalk:left"][foot=~/^(no|use_sidepath)/]["sidewalk:left"!~/^(no|separate|none)/]
+{
+   throwError: tr("Implausible combination: sidewalk but pedestrians not allowed");
+}
