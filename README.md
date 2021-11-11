@@ -12,8 +12,7 @@ highways transition from `building|highway=construction` +
 the `construction` tag gets forgotten and stays behind.  Similarly,
 `building|highway=construction` without `construction` tag is not very
 meaningful.  This file makes the JOSM validator throw an error at
-spurious `construction` tags (offering a somewhat heavy-handed fix:
-delete `construction`) and a warning at missing `construction` tags.
+spurious `construction` tags and a warning at missing `construction` tags.
 
 Identical checks are performed for `building|highway=proposed`.
 
@@ -54,3 +53,4 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 * 0.8_2021-09-28: implausible smoothness values
 * 0.9_2021_10_01: `cycleway=opposite`
 * 0.10_2021_10_08: pedestrians forbidden despite sidewalk
+* 0.11_2021-11-11: minor improvements

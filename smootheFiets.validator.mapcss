@@ -1,6 +1,6 @@
 meta{
    title: "smootheFiets's mapping hobbies";
-   version: "0.10";
+   version: "0.11";
    description: "Use JOSM validator to find spots on the map I'd like to improve";
    author: "smootheFiets";
 }
@@ -98,8 +98,8 @@ node.nodeInLanduse.nodeInHighway {
 
 
 /* Implausible smoothness values */
-way[smoothness=excellent][surface !~ /^(asphalt|paved|concrete)/],
-way[smoothness=good][surface !~ /^(asphalt|concrete|paved|paving_stones|wood)/]{
+way[smoothness=excellent][surface][surface !~ /^(asphalt|paved|concrete)/],
+way[smoothness=good][surface][surface !~ /^(asphalt|concrete|paved|paving_stones|wood)/]{
    throwWarning: tr("Implausible combination: surface is wrong or smoothness is worse)");
 }
 way[smoothness=impassable]{
