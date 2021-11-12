@@ -54,3 +54,4 @@ Throws warnings at things that smootheFiets likes to spend time on, most of them
 * 0.9_2021_10_01: `cycleway=opposite`
 * 0.10_2021_10_08: pedestrians forbidden despite sidewalk
 * 0.11_2021-11-11: minor improvements
+* 0.12_2021-11-13: relax traffic sign checks - allow forward/backward signs
